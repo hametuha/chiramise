@@ -10,10 +10,13 @@ Author URI: https://gianism.info/
 Text Domain: chiramise
 */
 
-$info = get_file_data( __FILE__, [
-	'version'     => 'Version',
-	'php_version' => 'PHP Version',
-] );
+$info = get_file_data(
+	__FILE__,
+	[
+		'version'     => 'Version',
+		'php_version' => 'PHP Version',
+	]
+);
 
 define( 'CHIRAMISE_VERSION', $info['version'] );
 
@@ -35,7 +38,10 @@ try {
 		}
 	}
 } catch ( Exception $e ) {
-	add_action( 'admin_notices', function() use ( $e ) {
-		printf( '<div class="error"><p>%s</p></div>', $e->getMessage() );
-	} );
+	add_action(
+		'admin_notices',
+		function () use ( $e ) {
+			printf( '<div class="error"><p>%s</p></div>', $e->getMessage() );
+		}
+	);
 }
