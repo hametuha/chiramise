@@ -9,3 +9,5 @@ parameters:
     paths:
         - chiramise.php
         - src/
+        - functions/
+        - hooks/
