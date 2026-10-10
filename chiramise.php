@@ -5,15 +5,18 @@ Plugin URI: https://gianism.info/add-on/chiramise/
 Description: A WordPress plugin which makes your contents "members only".
 Author: Hametuha INC.
 Version: 1.1.2
-PHP Version: 5.5.0
+Requires PHP: 7.4
 Author URI: https://gianism.info/
 Text Domain: chiramise
 */
 
-$info = get_file_data( __FILE__, [
-	'version'     => 'Version',
-	'php_version' => 'PHP Version',
-] );
+$info = get_file_data(
+	__FILE__,
+	[
+		'version'     => 'Version',
+		'php_version' => 'PHP Version',
+	]
+);
 
 define( 'CHIRAMISE_VERSION', $info['version'] );
 
@@ -35,7 +38,10 @@ try {
 		}
 	}
 } catch ( Exception $e ) {
-	add_action( 'admin_notices', function() use ( $e ) {
-		printf( '<div class="error"><p>%s</p></div>', $e->getMessage() );
-	} );
+	add_action(
+		'admin_notices',
+		function () use ( $e ) {
+			printf( '<div class="error"><p>%s</p></div>', $e->getMessage() );
+		}
+	);
 }
