@@ -8,11 +8,11 @@
  * @return mixed|void
  */
 function chiramise_get_splitters( $post = null ) {
-	$post = get_post( $post );
+	$post      = get_post( $post );
 	$splitters = [
 		'<!--more-->',
 		'<!--nextpage-->',
-	    '[Chiramise]',
+		'[Chiramise]',
 	];
 	/**
 	 * Filter for contents splitters.
@@ -106,9 +106,9 @@ function chiramise_filter_content( $content ) {
  * @return int
  */
 function chiramise_content_ratio( $post = null ) {
-	$post     = get_post( $post );
-	$total    = strlen( $post->post_content );
-	$segment  = strlen( chiramise_split( $post ) );
+	$post    = get_post( $post );
+	$total   = strlen( $post->post_content );
+	$segment = strlen( chiramise_split( $post ) );
 	return (int) round( 100 - 100 * ( $segment / $total ) );
 }
 
@@ -131,9 +131,9 @@ function chiramise_get_toc( $post = null ) {
 		for ( $i = 0, $l = count( $matches[0] ); $i < $l; $i++ ) {
 			$list[] = [
 				'label'    => $matches[3][ $i ],
-			    'depth'    => $matches[1][ $i ],
-			    'public'   => ( false !== strpos( $split_text, $matches[0][ $i ] ) ),
-			    'original' => $matches[0][ $i ],
+				'depth'    => $matches[1][ $i ],
+				'public'   => ( false !== strpos( $split_text, $matches[0][ $i ] ) ),
+				'original' => $matches[0][ $i ],
 			];
 		}
 	}
@@ -157,11 +157,12 @@ function chiramise_get_toc( $post = null ) {
  * @param null|int|WP_Post $post
  */
 function chiramise_the_toc( $target = '.entry-content', $post = null ) {
-	if ( ! ( $list = chiramise_get_toc( $post ) ) ) {
+	$list = chiramise_get_toc( $post );
+	if ( ! $list ) {
 		return;
 	}
 	$out = [
-		sprintf( '<ul class="chiramise-toc" data-target="%s">', esc_attr( $target ) )
+		sprintf( '<ul class="chiramise-toc" data-target="%s">', esc_attr( $target ) ),
 	];
 	foreach ( $list as $item ) {
 		if ( $item['public'] ) {
@@ -190,7 +191,7 @@ function chiramise_the_toc( $target = '.entry-content', $post = null ) {
 		$out[] = apply_filters( 'chiramise_toc_item', $html, $item, $post );
 	}
 	$out[] = '</ul>';
-	$out = implode( "\n", $out );
+	$out   = implode( "\n", $out );
 	wp_enqueue_script( 'chiramise-toc' );
 	/**
 	 * Filter the output of toc

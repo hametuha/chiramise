@@ -14,6 +14,8 @@
 	</rule>
 
 	<file>chiramise.php</file>
+	<file>functions</file>
+	<file>hooks</file>
 	<file>src</file>
 
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
