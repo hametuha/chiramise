@@ -14,3 +14,7 @@ phpstan-bootstrap.php
 composer.json
 composer.lock
 tests
+bin
+eslint.config.mjs
+phpunit.xml.dist
+.wp-env.json
