@@ -3,9 +3,12 @@
 /**
  * Register chiramise short code for compatibility.
  */
-add_shortcode( 'Chiramise', function() {
-	return '';
-} );
+add_shortcode(
+	'Chiramise',
+	function () {
+		return '';
+	}
+);
 
 /**
  * Filter content

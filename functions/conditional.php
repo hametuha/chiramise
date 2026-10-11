@@ -14,6 +14,7 @@
  */
 function chiramise_supported( $post_type ) {
 	$post_types = (array) get_option( 'chiramise_support_post_type', [] );
+	// phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict -- option の型が保証されず strict 化で判定が変わり得るため。#8 で対応。
 	return false !== array_search( $post_type, $post_types );
 }
 
@@ -35,7 +36,8 @@ function chiramise_can_read( $post = null, $user_id = null ) {
 	if ( ! chiramise_supported( $post->post_type ) ) {
 		return true;
 	}
-	if ( ! ( $user = get_userdata( $user_id ) ) ) {
+	$user = get_userdata( $user_id );
+	if ( ! $user ) {
 		return false;
 	}
 	return user_can( $user, chiramise_capability( $post ), $post->ID );

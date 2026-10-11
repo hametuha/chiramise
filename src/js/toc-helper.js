@@ -2,8 +2,6 @@
  * Description
  */
 
-/*global hoge: true*/
-
 jQuery(document).ready(function($){
 
   "use strict";

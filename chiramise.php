@@ -41,7 +41,7 @@ try {
 	add_action(
 		'admin_notices',
 		function () use ( $e ) {
-			printf( '<div class="error"><p>%s</p></div>', $e->getMessage() );
+			printf( '<div class="error"><p>%s</p></div>', wp_kses( $e->getMessage(), [ 'code' => [] ] ) );
 		}
 	);
 }
