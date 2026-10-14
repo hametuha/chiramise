@@ -21,6 +21,8 @@ jobs:
       - name: Check wp version
         uses: tarosky/farmhand-wp-action@v1
         id: wp_version
+        with:
+          readme: readme.md
 
       - name: Update Issue if needed
         if: ${{ 'true' == steps.wp_version.outputs.should_update }}
