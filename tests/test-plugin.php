@@ -70,4 +70,38 @@ class Chiramise_Plugin_Test extends WP_UnitTestCase {
 		wp_set_current_user( $user_id );
 		$this->assertTrue( chiramise_can_read( $post ) );
 	}
+
+	/**
+	 * Normalization of option values.
+	 */
+	public function test_normalize_post_types() {
+		$this->assertSame( [], chiramise_normalize_post_types( '' ) );
+		$this->assertSame( [], chiramise_normalize_post_types( [ '' ] ) );
+		$this->assertSame( [ 'post' ], chiramise_normalize_post_types( 'post' ) );
+		$this->assertSame( [ 'post', 'page' ], chiramise_normalize_post_types( [ 'post', 'page', 'post' ] ) );
+		$this->assertSame( [ '1', '2' ], chiramise_normalize_post_types( [ 1, 2 ] ) );
+		$this->assertSame( [ 'post' ], chiramise_normalize_post_types( [ 'post', [ 'x' ], null ] ) );
+	}
+
+	/**
+	 * Supported check works with irregular stored values.
+	 */
+	public function test_supported_with_irregular_option() {
+		update_option( 'chiramise_support_post_type', '' );
+		$this->assertFalse( chiramise_supported( 'post' ) );
+		update_option( 'chiramise_support_post_type', [ '' ] );
+		$this->assertFalse( chiramise_supported( '' ) );
+		update_option( 'chiramise_support_post_type', 'page' );
+		$this->assertTrue( chiramise_supported( 'page' ) );
+	}
+
+	/**
+	 * Setting is registered with a sanitize callback.
+	 */
+	public function test_setting_sanitize_callback() {
+		do_action( 'admin_init' );
+		$settings = get_registered_settings();
+		$this->assertArrayHasKey( 'chiramise_support_post_type', $settings );
+		$this->assertSame( 'chiramise_normalize_post_types', $settings['chiramise_support_post_type']['sanitize_callback'] );
+	}
 }

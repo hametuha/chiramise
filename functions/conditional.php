@@ -6,6 +6,36 @@
  */
 
 /**
+ * Normalize post type list to a unique array of non-empty strings.
+ *
+ * @param mixed $value Raw option value.
+ * @return string[]
+ */
+function chiramise_normalize_post_types( $value ) {
+	if ( is_null( $value ) || '' === $value ) {
+		return [];
+	}
+	$values = array_filter( (array) $value, 'is_scalar' );
+	$values = array_map( 'strval', $values );
+	$values = array_filter(
+		$values,
+		function ( $v ) {
+			return '' !== $v;
+		}
+	);
+	return array_values( array_unique( $values ) );
+}
+
+/**
+ * Get normalized supported post types.
+ *
+ * @return string[]
+ */
+function chiramise_get_supported_post_types() {
+	return chiramise_normalize_post_types( get_option( 'chiramise_support_post_type', [] ) );
+}
+
+/**
  * Detect if Chiramise supports this post type.
  *
  * @param string $post_type
@@ -13,9 +43,7 @@
  * @return bool
  */
 function chiramise_supported( $post_type ) {
-	$post_types = (array) get_option( 'chiramise_support_post_type', [] );
-	// phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict -- option の型が保証されず strict 化で判定が変わり得るため。#8 で対応。
-	return false !== array_search( $post_type, $post_types );
+	return in_array( (string) $post_type, chiramise_get_supported_post_types(), true );
 }
 
 /**

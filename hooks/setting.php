@@ -46,12 +46,12 @@ add_action(
 					printf( '<p style="color: red;">%s</p>', __( 'No post type available!' ) );
 					return;
 				}
-				$option = (array) get_option( 'chiramise_support_post_type', [] );
+				$option = chiramise_get_supported_post_types();
 				foreach ( $post_types as $post_type ) {
 					?>
 				<label style="margin-right: 1em; display: inline-block">
 					<input type="checkbox" name="chiramise_support_post_type[]"
-								value="<?php echo esc_attr( $post_type ); ?>" <?php checked( false !== array_search( $post_type, $option ) ); // phpcs:ignore WordPress.PHP.StrictInArray.MissingTrueStrict -- option の型が保証されず strict 化で判定が変わり得るため。#8 で対応。 ?> />
+								value="<?php echo esc_attr( $post_type ); ?>" <?php checked( in_array( (string) $post_type, $option, true ) ); ?> />
 						<?php echo esc_html( get_post_type_object( $post_type )->label ); ?>
 				</label>
 					<?php
@@ -62,7 +62,13 @@ add_action(
 		);
 
 		// Register setting field
-		register_setting( 'general', 'chiramise_support_post_type' );
+		register_setting(
+			'general',
+			'chiramise_support_post_type',
+			[
+				'sanitize_callback' => 'chiramise_normalize_post_types',
+			]
+		);
 	}
 );
 
