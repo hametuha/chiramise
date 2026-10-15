@@ -99,25 +99,7 @@ class Chiramise_Plugin_Test extends WP_UnitTestCase {
 	 * Setting is registered with a sanitize callback.
 	 */
 	public function test_setting_sanitize_callback() {
-		// Do not fire the whole admin_init (other hooks may send headers).
-		// Run only the callbacks defined in hooks/setting.php.
-		global $wp_filter;
-		$this->assertArrayHasKey( 'admin_init', $wp_filter );
-		$called = 0;
-		foreach ( $wp_filter['admin_init']->callbacks as $callbacks ) {
-			foreach ( $callbacks as $callback ) {
-				$function = $callback['function'];
-				if ( ! ( $function instanceof Closure ) ) {
-					continue;
-				}
-				$file = ( new ReflectionFunction( $function ) )->getFileName();
-				if ( 'setting.php' === basename( (string) $file ) && false !== strpos( wp_normalize_path( (string) $file ), '/hooks/' ) ) {
-					call_user_func( $function );
-					++$called;
-				}
-			}
-		}
-		$this->assertGreaterThan( 0, $called );
+		chiramise_register_settings();
 		$settings = get_registered_settings();
 		$this->assertArrayHasKey( 'chiramise_support_post_type', $settings );
 		$this->assertSame( 'chiramise_normalize_post_types', $settings['chiramise_support_post_type']['sanitize_callback'] );
