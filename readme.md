@@ -35,6 +35,10 @@ You can get this plugin from [github](https://github.com/hametuha/chiramise/).
 
 If you have, post it to [ginism.info](https://gianism.info/add-on/chiramise)
 
+### Where do I report security bugs found in this plugin?
+
+Please do not post it publicly. Report security bugs through the [Patchstack Vulnerability Disclosure Program](https://patchstack.com/database/report/wordpress/plugin/chiramise). The Patchstack team will assist you with verification, CVE assignment, and notify the developers of this plugin.
+
 ##  Screenshots 
 
 Sorry, no screen shots.
