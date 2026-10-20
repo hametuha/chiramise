@@ -3,8 +3,8 @@
 Contributors: Takahashi_Fumiki  
 Tags: membership
 Requires at least: 5.0.0  
-Tested up to: 5.2.1  
-Requires PHP: 5.5  
+Tested up to: 7.1  
+Requires PHP: 7.4  
 Stable tag: 1.1.2
 License: GPL 2.0 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
