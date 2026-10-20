@@ -2,9 +2,9 @@
 
 Contributors: Takahashi_Fumiki  
 Tags: membership
-Requires at least: 5.0.0  
-Tested up to: 5.2.1  
-Requires PHP: 5.5  
+Requires at least: 6.6  
+Tested up to: 7.1  
+Requires PHP: 7.4  
 Stable tag: 1.1.2
 License: GPL 2.0 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,7 +17,7 @@ Chiramise makes specified post type as __members only__.
 It based on [WordPress' capability](https://codex.wordpress.org/Roles_and_Capabilities) so you can customize it with WordPress way.
 Default capability is `read` which means that only logged in users can read contents.
 
-**NOTICE: Requires PHP5.5 and over!**
+**NOTICE: Requires PHP 7.4 and WordPress 6.6 or later.**
 
 ##  Installation 
 
